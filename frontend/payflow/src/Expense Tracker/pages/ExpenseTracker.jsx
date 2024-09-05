@@ -1,4 +1,3 @@
-// ExpenseTracker.jsx
 import React, { useEffect, useState } from 'react';
 import Graph from '../components/Graph';
 import TransactionForm from '../components/TransactionForm';
@@ -16,7 +15,17 @@ function ExpenseTracker() {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/budget/list');
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+          throw new Error('No authentication token found.');
+        }
+
+        const response = await axios.get('http://localhost:3000/api/v1/budget/list', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
         if (Array.isArray(response.data)) {
           setTransactions(response.data);
           setLabels(getLabels(response.data));
@@ -24,6 +33,7 @@ function ExpenseTracker() {
           throw new Error('Unexpected response format');
         }
       } catch (err) {
+        console.error('Error fetching transactions:', err); // Log the actual error
         setError('An error occurred while fetching transactions.');
       } finally {
         setLoading(false);
@@ -31,16 +41,16 @@ function ExpenseTracker() {
     };
 
     fetchTransactions();
-  }, []);
+  }, []); // Empty dependency array ensures this runs only on initial render
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (
     <div className="pt-2 min-h-screen w-screen bg-cover bg-center bg-[url('/src/images/dr4.jpg')]">
-    <div className='font-bold text-4xl text-blue-300 flex justify-center mb-10 mt-5'>BUDGET OVERVIEW</div>
+      <div className='font-bold text-4xl text-blue-300 flex justify-center mb-10 mt-5'>BUDGET OVERVIEW</div>
       <div className='sm:flex justify-around p-6 pt-0'>
-        <div className=' w-full   sm:w-1/2 '>
+        <div className='w-full sm:w-1/2'>
           <Graph transactions={transactions} /> 
         </div>
         <div className='mt-10 ml-10 sm:mt-0 w-[400px] sm:content-center lg:w-[500px]'>

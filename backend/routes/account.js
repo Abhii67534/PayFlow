@@ -1,6 +1,6 @@
 const express = require("express");
 const { default: mongoose } = require("mongoose");
-const { user, bankModel } = require("../db");
+const { user, Bank } = require("../db");
 const { authMiddleware } = require("../authentication/middleware");
 
 const router = express.Router()
@@ -9,7 +9,7 @@ const router = express.Router()
 router.get("/balance",authMiddleware, async (req, res) => {
     const userid = req.userId;
     console.log(userid)
-    const existAccount = await bankModel.findOne({ userId: userid })
+    const existAccount = await Bank.findOne({ userId: userid })
 
     if (existAccount) {
         const balance = existAccount.balance;
@@ -29,7 +29,7 @@ router.post("/transfer", authMiddleware, async (req, res) => {
     session.startTransaction()
     /////verifying sender details and bank balance /////////////
 
-    const existSender = await bankModel.findOne({ userId: senderId }).session(session);
+    const existSender = await Bank.findOne({ userId: senderId }).session(session);
 
     if (!existSender) {
         await session.abortTransaction();
@@ -41,14 +41,14 @@ router.post("/transfer", authMiddleware, async (req, res) => {
         res.status(411).json({ msg: "Insufficient balance" })
     }
 
-    const existReciever = await bankModel.findOne({ userId: recieverId }).session(session);;
+    const existReciever = await Bank.findOne({ userId: recieverId }).session(session);;
 
     if (!existReciever) {
         await session.abortTransaction();
         return res.status(411).json({ msg: "Reciever not found" })
     }
 
-   await  bankModel.updateOne({
+   await  Bank.updateOne({
         userId: senderId
     }, {
         $inc: {
@@ -56,7 +56,7 @@ router.post("/transfer", authMiddleware, async (req, res) => {
         }
     }).session(session);
 
-   await bankModel.updateOne({
+   await Bank.updateOne({
         userId: recieverId
     }, {
         $inc: {
