@@ -8,7 +8,7 @@ const subHead = "Please enter your credentials to access your account"
 export const Signin = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [error, setError] = useState(""); 
+    const [error, setError] = useState("");
 
     const navigate = useNavigate()
     const handleClick = (event) => {
@@ -28,7 +28,7 @@ export const Signin = () => {
                 console.log("successful")
                 const token = response.data.token
                 const userId = response.data.userId
-                
+
 
                 localStorage.setItem("authToken", token)
                 localStorage.setItem("userId", userId)
@@ -40,7 +40,7 @@ export const Signin = () => {
                 });
                 localStorage.setItem("balance", getBal.data.balance)
 
-                navigate("/dashboard")
+                window.location.href = "/dashboard"
 
             } else {
                 // Handle different response statuses if needed
@@ -55,17 +55,20 @@ export const Signin = () => {
     return (
         <div className="pt-20 h-screen w-screen bg-cover bg-center bg-[url('/src/images/dr4.jpg')]">
             <div className=" text-center lg:text-left lg:ml-12 lg:mx-0 w-[400px] h-[600px] mx-auto mt-0 my-8 p-4 border border-secondary rounded-lg shadow-lg bg-black bg-opacity-90">
-                <Heading name={"SIGN IN"} subhead={subHead} />
+
+                <div >
+                    <Heading name={"SIGN IN"} subhead={subHead} />
+                </div>
 
                 {error && (
                     <p className="text-red-500 mb-4">{error}</p>
                 )}
-                
+
                 <div className="ml-5">
                     <InputCard label={"Email"} placeholder={"abc@example.com"} onChange={(e) => {
                         setEmail(e.target.value)
                     }} />
-                    <InputCard label={"Password"} placeholder={"******"} name={"password"}  onChange={(e) => {
+                    <InputCard label={"Password"} placeholder={"******"} name={"password"} onChange={(e) => {
                         setPassword(e.target.value)
                     }} />
                 </div>

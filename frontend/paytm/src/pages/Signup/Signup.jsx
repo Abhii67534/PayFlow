@@ -23,6 +23,12 @@ export const Signup = () => {
 
     const handleSignUp = async () => {
         setLoading(true);
+        if (!email || !firstName || !lastName || !password) {
+            setError('All fields are required.');
+            setLoading(false);
+            return;
+        }
+        
         const formData = {
             userName: email,
             firstName,
