@@ -53,7 +53,7 @@ function ExpenseTracker() {
       </div>
 
       <div>
-        <List transactions={transactions} /> {/* Pass transactions to List */}
+        <List transactions={transactions} />
       </div>
     </div>
   );

@@ -7,10 +7,11 @@ const TransactionForm=()=> {
     const [name,setName] = useState("")
     const [amount, setAmount]= useState("")
     const [type,setType]= useState("Investment")
-
+    const userid = localStorage.getItem("userId")
     const handleClick = async ()=>{
-        const formData = {name,amount,type};
-
+        const formData = {userid,name,amount,type};
+        console.log(formData);
+        
         const response = await axios.post("http://localhost:3000/api/v1/budget/transaction",formData)
 
         if(response.status == 200){

@@ -1,15 +1,19 @@
 const express = require("express");
 
 const { budgetModel } = require("../db");
+const { authMiddleware } = require("../authentication/middleware");
 
 
 const router = express.Router();
 
 router.post("/transaction", async (req, res) => {
-    const { name, type, amount } = req.body;
+    const {userid, name, type, amount } = req.body;
+
+    
     console.log(req.body);
 
     await budgetModel.create({
+        userId:userid,
         transName: name,
         type: type,
         amount: amount

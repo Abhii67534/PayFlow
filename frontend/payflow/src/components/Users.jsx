@@ -11,7 +11,14 @@ export const Users = () => {
         const extractUsers = async () => {
             try {
                 const response = await axios.get("http://localhost:3000/api/v1/user/userinfo");
-                setUsers(response.data.users);
+
+                // Get logged-in user ID from localStorage
+                const loggedInUserId = localStorage.getItem("userId");
+
+                // Filter out the logged-in user from the list of users
+                const filteredUsers = response.data.users.filter(user => user._id !== loggedInUserId);
+
+                setUsers(filteredUsers);
             } catch (error) {
                 console.error("Failed to fetch users", error);
             }
@@ -30,9 +37,9 @@ export const Users = () => {
 
     return (
         <div>
-        <div className="pl-2 font-bold text-xl mb-8">
-            All Users
-        </div>
+            <div className="pl-2 font-bold text-xl mb-8">
+                All Users
+            </div>
             {users.length > 0 ? (
                 users.map((user) => (
                     <div key={user._id}>
@@ -41,7 +48,6 @@ export const Users = () => {
                                 <div className="pr-2">{user.firstName}</div>
                                 <div>{user.lastName}</div>
                             </div>
-
                             <Button label={"Send Money"} onClick={() => handleClick(user._id)} />
                         </div>
                     </div>

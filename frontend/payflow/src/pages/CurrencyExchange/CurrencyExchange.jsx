@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { InputCard } from '../../components/InputCard';
 import { Button } from '../../components/Button';
+import { Heading } from "../../components/Heading"
 
 const CurrencyExchange = () => {
     const [conversion, setConversion] = useState(null);
@@ -28,9 +29,8 @@ const CurrencyExchange = () => {
     return (
         <div className="pt-20 h-screen w-screen bg-cover bg-center bg-[url('/src/images/dr4.jpg')]">
             <div className=" text-center lg:text-left lg:ml-12 lg:mx-0 w-[800px] h-[400px] mx-auto mt-0 my-8 p-4 border border-secondary rounded-lg shadow-lg bg-black bg-opacity-90">
-            <div className='text-3xl font-bold pb-10'>
-                Currency Exchange
-            </div>
+            <Heading name={"CURRENCY EXCHANGE"}/>
+            
                 <div className='flex justify-around'>
                     <InputCard label={"From(Currency)"} placeholder={"Example-USD"} onChange={(e) => { setFromCurrency(e.target.value) }} />
                     <InputCard label={"To(Currency)"} placeholder={"Example-INR"}  onChange={(e) => { setToCurrency(e.target.value) }} />

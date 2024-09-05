@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = "abhi1234"
 
 const authMiddleware = (req, res, next) => {
-    const header = req.headers.authorization;  // Corrected to headers
+    const header = req.headers.authorization;  
+    console.log(header);
     
 
     if (!header || !header.startsWith("Bearer ")) {
