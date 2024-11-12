@@ -23,7 +23,7 @@ export const Signin = () => {
         }
         try {
             console.log(formData);
-            const response = await axios.post("http://localhost:3000/api/v1/user/signin", formData);
+            const response = await axios.post("http://ec2-18-206-114-27.compute-1.amazonaws.com:3000/api/v1/user/signin", formData);
             if (response.status == 200) {
                 console.log("successful")
                 const token = response.data.token
@@ -33,7 +33,7 @@ export const Signin = () => {
                 localStorage.setItem("authToken", token)
                 localStorage.setItem("userId", userId)
 
-                const getBal = await axios.get("http://localhost:3000/api/v1/account/balance", {
+                const getBal = await axios.get("http://ec2-18-206-114-27.compute-1.amazonaws.com:3000/api/v1/account/balance", {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

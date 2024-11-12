@@ -10,7 +10,7 @@ export const Users = () => {
     useEffect(() => {
         const extractUsers = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/v1/user/userinfo");
+                const response = await axios.get("http://ec2-18-206-114-27.compute-1.amazonaws.com:3000/api/v1/user/userinfo");
 
                 // Get logged-in user ID from localStorage
                 const loggedInUserId = localStorage.getItem("userId");

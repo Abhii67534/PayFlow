@@ -9,7 +9,7 @@ export const UserSearch = () => {
   const [users, setUsers] = useState(null);
   const handleClick = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/v1/user/bulk", { params: { filter } });
+      const response = await axios.get("http://ec2-18-206-114-27.compute-1.amazonaws.com:3000/api/v1/user/bulk", { params: { filter } });
       if (response.status === 200) {
         setUsers(response.data.users)
 

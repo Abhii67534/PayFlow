@@ -33,7 +33,7 @@ export const SendMoney = () => {
 
 
         try {
-            const response = await axios.post("http://localhost:3000/api/v1/account/transfer", {formData});
+            const response = await axios.post("http://ec2-18-206-114-27.compute-1.amazonaws.com:3000/api/v1/account/transfer", {formData});
 
            if(response.status ==200){
             console.log("Send Money Success")

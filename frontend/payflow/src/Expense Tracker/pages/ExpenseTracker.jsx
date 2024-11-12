@@ -20,7 +20,7 @@ function ExpenseTracker() {
           throw new Error('No authentication token found.');
         }
 
-        const response = await axios.get('http://localhost:3000/api/v1/budget/list', {
+        const response = await axios.get('http://ec2-18-206-114-27.compute-1.amazonaws.com:3000/api/v1/budget/list', {
           headers: {
             Authorization: `Bearer ${token}`
           }

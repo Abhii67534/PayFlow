@@ -20,7 +20,7 @@ const TransactionForm = () => {
         console.log(formData);
     
         try {
-            const response = await axios.post("http://localhost:3000/api/v1/budget/transaction", formData, {
+            const response = await axios.post("http://ec2-18-206-114-27.compute-1.amazonaws.com:3000/api/v1/budget/transaction", formData, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('authToken')}`
                 }
